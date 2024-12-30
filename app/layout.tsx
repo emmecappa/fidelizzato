@@ -33,9 +33,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar>
-      <NavbarBrand>
-      <Link color="foreground" href="/">
+        <div className="flex flex-column justify-between p-3">
+        <Link color="foreground" href="/">
       <Image
           alt="nextui logo"
           height={40}
@@ -44,26 +43,20 @@ export default function RootLayout({
           width={40}
         />
             </Link>
-      
-      </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          
-        </NavbarItem>
-        <NavbarItem >
+        <div className="flex gap-4">
           <Link aria-current="page" href="/card">
             Customers
           </Link>
-        </NavbarItem>
-        <NavbarItem>
+
           <Link color="foreground" href="/manager">
             Riccardo
           </Link>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent justify="end">
-      </NavbarContent>
-    </Navbar>
+
+        </div>
+        <div></div>
+
+        </div>
+
          <div className="	grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
          <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
          <Providers>{children}</Providers>
