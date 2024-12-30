@@ -23,7 +23,7 @@ export default function Home() {
     </Card></Link>
        <Link href={'/manager'} >
       <Button 
-      className="bg-gradient-to-tr from-pink-500 to-blue-500 text-white shadow-lg"
+      className="bg-gradient-to-tr from-pink-500 to-blue-500 text-white shadow-lg mt-4"
       radius="full"
       variant="shadow">Manager section</Button></Link>
 </>  
