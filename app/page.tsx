@@ -1,4 +1,3 @@
-import { Card, CardHeader, CardBody } from "@nextui-org/card";
 
 export default function Home() {
   return (
