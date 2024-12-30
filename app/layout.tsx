@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Navbar,NavbarBrand,NavbarContent,NavbarItem } from "@nextui-org/navbar";
+import { Image } from "@nextui-org/image";
+import Link from "next/link";
+
 import { Providers } from "./providers";
 
 const geistSans = Geist({
@@ -29,6 +33,37 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Navbar>
+      <NavbarBrand>
+      <Link color="foreground" href="/">
+      <Image
+          alt="nextui logo"
+          height={40}
+          radius="sm"
+          src="https://lh6.googleusercontent.com/kzmA2qA6Lhq11aWrB0M340ea9I__CzrEpZeQUSNQYd3WU7S04rOhOWwHgTlSWPVMYHtkf-ATXHqR7lQc14n6XXZW9lRjANcAg6JpNNYQzKRVD8lO"
+          width={40}
+        />
+            </Link>
+      
+      </NavbarBrand>
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarItem>
+          
+        </NavbarItem>
+        <NavbarItem >
+          <Link aria-current="page" href="/card">
+            Customers
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/manager">
+            Riccardo
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
+      <NavbarContent justify="end">
+      </NavbarContent>
+    </Navbar>
          <div className="	grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
          <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
          <Providers>{children}</Providers>
