@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar,NavbarBrand,NavbarContent,NavbarItem } from "@nextui-org/navbar";
+
 import { Image } from "@nextui-org/image";
 import Link from "next/link";
 
