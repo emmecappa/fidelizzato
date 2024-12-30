@@ -3,8 +3,10 @@ import { Card, CardHeader, CardBody,CardFooter } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 import { Button } from "@nextui-org/button";
 import { useState } from "react";
+import { ModalContent,Modal, ModalBody, ModalHeader, ModalFooter, useDisclosure } from "@nextui-org/modal";
 
 export default function CardSection() {
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
 
     const [points,setPoints] = useState(12);
@@ -26,8 +28,33 @@ export default function CardSection() {
       </CardFooter>
     </Card>
     
-    <Button className="mt-4" color="danger" variant="bordered" onPress={() => setPoints(points+2)}>
+    <Button className="mt-4" color="danger" variant="bordered" onPress={() => {onOpen();setPoints(points+2)}}>
         Add points
       </Button>
+      <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">Scan me please</ModalHeader>
+              <ModalBody>
+            <Image src="https://assets-v2.lottiefiles.com/a/ec4394a2-1151-11ee-ab60-b3dd36237565/gx2MOoN1Ep.gif"/>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Done
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
     }
