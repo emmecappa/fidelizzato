@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   },
   darkMode: "class",
   plugins: [nextui()],
+  basePath: "/fidalizzato",
+  output: "export",
+  reactStrictMode: true,
 };
 
 export default nextConfig;
