@@ -6,10 +6,31 @@ import { Divider } from "@nextui-org/divider";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { ModalContent,Modal, ModalBody, ModalHeader, ModalFooter, useDisclosure } from "@nextui-org/modal";
+import QRCode from "qrcode";
+import { useEffect, useState } from "react";
 
 export default function Manager() {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-
+    const [qrCode, setQrCode] = useState("");
+    useEffect(() => {
+      const controller = new AbortController(); // Create an AbortController.
+      const { signal } = controller;
+  
+      const generateQRCode = async () => {
+        try {
+          const url = await QRCode.toDataURL("http://192.168.186.39:3000/fidelizzato/card?add_points=true",);
+          setQrCode(url);
+        } catch (error) {
+            console.error("Error generating QR code:", error);
+        }
+      };
+  
+      generateQRCode();
+  
+      return () => {
+        controller.abort();
+      };
+    }, []);
     return <>
     <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3">
@@ -40,7 +61,11 @@ export default function Manager() {
             <>
               <ModalHeader className="flex flex-col gap-1">Scan me please</ModalHeader>
               <ModalBody>
-            <Image src="https://media.istockphoto.com/id/1251071788/vector/qr-code-bar-code-black-icon-digital-technology.jpg?s=612x612&w=0&k=20&c=maw4OqMSEegAdSo8Drm9HO7i1ddddvP2YaL1UuWbRig="/>
+              {qrCode ? (
+                <Image src={qrCode} alt="QR Code" />
+              ) : (
+                <p>Generating QR code...</p>
+              )}
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
@@ -56,7 +81,6 @@ export default function Manager() {
       </Modal>
       </CardBody>
       <CardFooter>
-     
       </CardFooter>
     </Card>
     </>

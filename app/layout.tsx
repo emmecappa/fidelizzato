@@ -6,7 +6,6 @@ import { Image } from "@nextui-org/image";
 import Link from "next/link";
 
 import { Providers } from "./providers";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

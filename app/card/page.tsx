@@ -2,14 +2,44 @@
 import { Card, CardHeader, CardBody,CardFooter } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 import { Button } from "@nextui-org/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalContent,Modal, ModalBody, ModalHeader, ModalFooter, useDisclosure } from "@nextui-org/modal";
+import { useSearchParams } from "next/navigation";
 
 export default function CardSection() {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    const [points,setPoints] = useState(0);
+    const searchParams = useSearchParams();
+    const addPoints = searchParams.get('add_points');
+    useEffect(() => {
+    const data = localStorage.getItem('card_points');
+    if (!data) {
+      localStorage.setItem('card_points','0');
+    }else{
+      setPoints(Number(data));
+    }
+    if(addPoints){
+      if (data) {
+        handleSetPoint(Number(addPoints))
+      }else{
+        localStorage.setItem('card_points','0');
+        handleSetPoint(Number(addPoints))
+      }
+    }
+  }, []);
 
+    useEffect(() => {
+      localStorage.setItem('card_points', points.toString());
+    }, [points]);
 
-    const [points,setPoints] = useState(12);
+    const handleSetPoint = (data: number = 7) => {
+      const timestamp =  localStorage.getItem('timestamp') ? localStorage.getItem('timestamp') : localStorage.setItem('timestamp', Date.now().toString());
+      if(Date.now() - Number(timestamp) > Number(60000)){
+        setPoints(Number(localStorage.getItem('card_points'))+data);
+        localStorage.setItem('timestamp', Date.now().toString());
+      }
+    }
+
     return <>
     <Card className="py-4">
       <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
@@ -28,7 +58,7 @@ export default function CardSection() {
       </CardFooter>
     </Card>
     
-    <Button className="mt-4" color="danger" variant="bordered" onPress={() => {onOpen();setPoints(points+2)}}>
+    <Button className="mt-4" color="danger" variant="bordered" onPress={() => {onOpen();handleSetPoint();}}>
         Add points
       </Button>
       <Modal
